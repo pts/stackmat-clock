@@ -72,7 +72,7 @@ def main(argv):
     ser.xonxoff = False
     ser.rtscts = False
     ser.dsrdtr = False
-    set.writeTimeout = 0
+    ser.writeTimeout = 0
 
     ser.open()
 
