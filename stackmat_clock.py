@@ -94,8 +94,8 @@ def main(argv):
     packet = get_run_packet_at(ts)
     sys.stdout.write(packet.rstrip('\r\n') + '\n')
     sys.stdout.flush()
-    ser.flushOutput()
     ser.write(packet)
+    ser.flushOutput()
     i += 1
     time.sleep(i * .1 - ts)
 
