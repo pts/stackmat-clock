@@ -35,7 +35,7 @@ import struct
 import sys
 import termios
 
-#import serial
+import serialutil
 from serialutil import SerialBase, SerialException, to_bytes, \
     portNotOpenError, writeTimeoutError, Timeout
 

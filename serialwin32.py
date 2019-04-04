@@ -12,8 +12,9 @@
 # pylint: disable=invalid-name,too-few-public-methods
 import ctypes
 import time
-import serialwin32c as win32
 
+import serialwin32c as win32
+import serialutil
 from serialutil import SerialBase, SerialException, to_bytes, portNotOpenError, writeTimeoutError
 
 
