@@ -88,6 +88,7 @@ def main(argv):
     packet = get_run_packet_at(ts)
     sys.stdout.write(packet)
     sys.stdout.flush()
+    ser.flushOutput()
     ser.write(packet)
     i += 1
     time.sleep(i * .1 - ts)
