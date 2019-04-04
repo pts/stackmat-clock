@@ -10,13 +10,19 @@ import time
 
 # Description of packets:
 # https://www.reddit.com/r/Cubers/comments/64czya/wip_stackmat_timer_support_for_twistytimer_app/dg19s4y/
-PACKET_LEFT    =  'L00000@\r\n'  # Left and on timer.
-PACKET_RIGHT   =  'R00000@\r\n'  # Right hand on timer.
-PACKET_BOTH    =  'C00000@\r\n'  # Both hands on timer.
-PACKET_READY   =  'A00000@\r\n'  # Ready to start.
-PACKET_RESET   =  'I00000@\r\n'
-PACKET_STOPPED =  'S00000@\r\n'
-PACKET_RUN1    =  ' 12345O\r\n'  # Running, at 1:23.45.
+#
+# Packet validator code:
+# https://github.com/timhabermaas/stackmat.js/blob/c282a247935afb0b2519c644217e278e2c9284c5/src/stackmat.coffee#L72-L85
+#
+# Audio data decoder:
+# https://github.com/timhabermaas/stackmat.js/blob/c282a247935afb0b2519c644217e278e2c9284c5/src/stackmat.coffee#L106-L176
+PACKET_LEFT    =  'L00000@\n\r'  # Left and on timer.
+PACKET_RIGHT   =  'R00000@\n\r'  # Right hand on timer.
+PACKET_BOTH    =  'C00000@\n\r'  # Both hands on timer.
+PACKET_READY   =  'A00000@\n\r'  # Ready to start.
+PACKET_RESET   =  'I00000@\n\r'
+PACKET_STOPPED =  'S00000@\n\r'
+PACKET_RUN1    =  ' 12345O\n\r'  # Running, at 1:23.45.
 
 
 def get_run_packet_at(ts):
@@ -31,7 +37,7 @@ def get_run_packet_at(ts):
   tss = '%d%04d' % (ts / 6000, ts % 6000)
   o0 = ord('0')
   dsum = sum(ord(c) - o0 for c in tss)
-  return ' %s%c\r\n' % (tss, 64 + dsum)
+  return ' %s%c\n\r' % (tss, 64 + dsum)
 
 
 assert get_run_packet_at(83.45) == PACKET_RUN1
@@ -86,7 +92,7 @@ def main(argv):
   while 1:
     ts = time.time() - t0
     packet = get_run_packet_at(ts)
-    sys.stdout.write(packet)
+    sys.stdout.write(packet.rstrip('\r\n') + '\n')
     sys.stdout.flush()
     ser.flushOutput()
     ser.write(packet)
