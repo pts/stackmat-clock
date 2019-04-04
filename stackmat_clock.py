@@ -64,7 +64,11 @@ def main(argv):
     #
     # Description of serial port settings:
     # https://www.reddit.com/r/Cubers/comments/64czya/wip_stackmat_timer_support_for_twistytimer_app/dg19s4y/
-    ser = serial.Serial(serial_device, 1200)
+    ser = serial.Serial()
+    # TODO(pts): Pass these as arguments to Serial(...), and omit the call to
+    #            ser.open().
+    ser.port = serial_device
+    ser.baudrate = 1200
     ser.bytesize = serial.EIGHTBITS
     ser.parity = serial.PARITY_NONE
     ser.stopbits = serial.STOPBITS_ONE
