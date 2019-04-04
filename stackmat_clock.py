@@ -1,6 +1,6 @@
 #! /usr/bin/python
 #
-# stackmat_clock.py: Generate serial signal emitted by the Stackmat timer.
+# stackmat_clock.py: Generate serial signal emitted by the StackMat Timer.
 # by pts@fazekas.hu at Thu Apr  4 15:21:17 CEST 2019
 #
 
